@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from "react";
+import { AppRoutes } from "./routes";
+import { NavBar } from "./Components/nav-bar";
+
 import './App.css';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = () => setUser({ login: "taradam" });
+
+  const handleLogout = () => setUser(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-layout">
+        <NavBar
+          user={user}
+          onAuthButtonClick={user ? handleLogout : handleLogin}
+        />
+        <AppRoutes user={user} />
+      </div>
     </div>
   );
 }
